@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmailSender.Model;
 
 namespace EmailSender.Controllers
 {
@@ -17,11 +18,11 @@ namespace EmailSender.Controllers
         }
 
         [HttpPost, Route("SendEmail")]
-        public async Task<IActionResult> SendEmailAsync(string recipientEmail, string recipientFirstName, string Link)
+        public async Task<IActionResult> SendEmailAsync([FromForm] EmailRequest request)
         {
             try
             {
-                 string messageStatus = await _emailSender.SendEmailAsync(recipientEmail, recipientFirstName, Link);
+                 string messageStatus = await _emailSender.SendEmailAsync(request);
                 return Ok(messageStatus);
             }
             catch (Exception ex)

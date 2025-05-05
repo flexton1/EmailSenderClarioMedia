@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using EmailSender.Model;
 
 namespace EmailSender.Interface
 {
     public interface IEmailSender
     {
-        Task<string> SendEmailAsync(string recipientEmail, string recipientFirstName, string Link);
+        Task<string> SendEmailAsync(EmailRequest request);
     }
 }

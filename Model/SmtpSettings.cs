@@ -13,5 +13,8 @@ namespace EmailSender.Model
         public string SenderEmail { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string ReceiverEmailAddresses { get; set; }
+        public string Subject { get; set; }
+        public bool SSL { get; set; }
     }
 }

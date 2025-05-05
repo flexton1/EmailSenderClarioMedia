@@ -1,16 +1,10 @@
 ﻿using EmailSender.Interface;
 using EmailSender.Model;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
 using MailKit.Net.Smtp;
 
 namespace EmailSender.Service
@@ -24,22 +18,34 @@ namespace EmailSender.Service
             _smtpSettings = smtpSettings.Value;
         }
 
-        public async Task<string> SendEmailAsync(string recipientEmail, string recipientFirstName, string Link)
+        public async Task<string> SendEmailAsync(EmailRequest request)
         {
+            var recipients = _smtpSettings.ReceiverEmailAddresses
+                .Split(',', StringSplitOptions.RemoveEmptyEntries);
+            
             var message = new MimeMessage();
             message.From.Add(MailboxAddress.Parse(_smtpSettings.SenderEmail));
-            message.To.Add(MailboxAddress.Parse(recipientEmail));
-            message.Subject = "How to send email in .Net Core";
+            foreach (var recipientEmail in recipients)
+            {
+                message.To.Add(MailboxAddress.Parse(recipientEmail));
+            }
+            message.Subject = _smtpSettings.Subject + request.Name;
             message.Body = new TextPart("plain")
             {
-                Text = "This is just a walkthrough in sending messages in .net core"
+                Text = $@"You have received a new message from your website!
+
+                        Name: {request.Name}
+                        Email: {request.Email}
+
+                        Message:
+                        {request.Message}"
             };
 
             var client = new SmtpClient();
 
             try
             {
-                await client.ConnectAsync(_smtpSettings.Server, _smtpSettings.Port, true);
+                await client.ConnectAsync(_smtpSettings.Server, _smtpSettings.Port, _smtpSettings.SSL);
                 await client.AuthenticateAsync(new NetworkCredential(_smtpSettings.SenderEmail, _smtpSettings.Password));
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
