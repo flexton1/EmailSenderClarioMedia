@@ -34,11 +34,11 @@ namespace EmailSender.Service
             {
                 Text = $@"You have received a new message from your website!
 
-                        Name: {request.Name}
-                        Email: {request.Email}
+Name: {request.Name}
+Email: {request.Email}
 
-                        Message:
-                        {request.Message}"
+Message:
+{request.Message}"
             };
 
             var client = new SmtpClient();
