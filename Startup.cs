@@ -72,6 +72,12 @@ namespace EmailSender
             {
                 c.SerializeAsV2 = true;
             });
+            
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
 
             app.UseSwaggerUI(c =>
             {
