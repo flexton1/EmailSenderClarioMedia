@@ -18,7 +18,7 @@ namespace EmailSender.Controllers
         }
 
         [HttpPost, Route("SendEmail")]
-        public async Task<IActionResult> SendEmailAsync([FromForm] EmailRequest request)
+        public async Task<IActionResult> SendEmailAsync([FromBody] EmailRequest request)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace EmailSender.Controllers
         }
         
         [HttpPost, Route("SendContactEmail")]
-        public async Task<IActionResult> SendContactEmailAsync([FromForm] ContactEmailRequest request)
+        public async Task<IActionResult> SendContactEmailAsync([FromBody] ContactEmailRequest request)
         {
             try
             {
