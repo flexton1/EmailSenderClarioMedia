@@ -30,5 +30,19 @@ namespace EmailSender.Controllers
                 return BadRequest(ex.Message.ToString());
             }
         }
+        
+        [HttpPost, Route("SendContactEmail")]
+        public async Task<IActionResult> SendContactEmailAsync([FromForm] ContactEmailRequest request)
+        {
+            try
+            {
+                string messageStatus = await _emailSender.SendContactEmailAsync(request);
+                return Ok(messageStatus);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message.ToString());
+            }
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace EmailSender.Interface
     public interface IEmailSender
     {
         Task<string> SendEmailAsync(EmailRequest request);
+        Task<string> SendContactEmailAsync(ContactEmailRequest request);
     }
 }
