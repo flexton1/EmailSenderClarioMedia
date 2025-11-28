@@ -27,20 +27,20 @@ namespace EmailSender.Service
     var adminBody = $@"
 NOVA REGISTRACIJA TIMA - SARAJEVO LJUBAVI MOJA 2026
 
-NAZIV TIMA: {request.TeamName}
-DRŽAVA PORIJEKLA: {request.Country}
-PREDSTAVNIK TIMA: {request.Representative}
-KONTAKT TELEFON: {request.Phone}
-KONTAKT EMAIL: {request.Email}
+NAZIV TIMA: {request.TeamName ?? ""}
+DRŽAVA PORIJEKLA: {request.Country ?? ""}
+PREDSTAVNIK TIMA: {request.Representative ?? ""}
+KONTAKT TELEFON: {request.Phone ?? ""}
+KONTAKT EMAIL: {request.Email ?? ""}
 
 SPISAK TAKMIČARA:
-{request.Players}
+{request.Players ?? ""}
 
-PLANIRANI DOLAZAK: {request.ArrivalDate}
-PLANIRANI ODLAZAK: {request.DepartureDate}
+PLANIRANI DOLAZAK: {request.ArrivalDate ?? ""}
+PLANIRANI ODLAZAK: {request.DepartureDate ?? ""}
 
 VAŽNE NAPOMENE:
-{request.Notes}
+{request.Notes ?? ""}
 ";
 
     var messageToAdmins = new MimeMessage();
@@ -55,7 +55,7 @@ VAŽNE NAPOMENE:
 
     // Confirmation email to user
     var confirmationBody = $@"
-Poštovani {request.Representative},
+Poštovani {request.Representative ?? ""},
 
 Vaša prijava za turnir 'Sarajevo Ljubavi Moja 2026' je uspješno zaprimljena.
 
@@ -104,11 +104,11 @@ Organizacioni tim RKV Sarajevo
     var adminBody = $@"
 NOVA PORUKA SA KONTAKT FORME
 
-Ime: {request.Name}
-Email: {request.Email}
+Ime: {request.Name ?? ""}
+Email: {request.Email ?? ""}
 
 Poruka:
-{request.Message}
+{request.Message ?? ""}
 ";
 
     var adminMessage = new MimeMessage();
@@ -124,7 +124,7 @@ Poruka:
     // CONFIRMATION EMAIL TO USER
     // -------------------------------
     var confirmationBody = $@"
-Poštovani {request.Name},
+Poštovani {request.Name ?? ""},
 
 Vaša poruka je uspješno zaprimljena.
 Odgovorićemo Vam u najkraćem mogućem roku.
