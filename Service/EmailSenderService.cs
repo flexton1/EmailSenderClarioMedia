@@ -76,7 +76,7 @@ Organizacioni tim RKV Sarajevo
             try
             {
                 await client.ConnectAsync(_smtpSettings.Server, _smtpSettings.Port, _smtpSettings.SSL);
-                await client.AuthenticateAsync(_smtpSettings.SenderEmail, _smtpSettings.Password);
+                await client.AuthenticateAsync(new NetworkCredential(_smtpSettings.SenderEmail, _smtpSettings.Password));
 
                 // Send admin email
                 await client.SendAsync(messageToAdmins);
@@ -147,7 +147,7 @@ RKV Sarajevo
     try
     {
         await client.ConnectAsync(_smtpSettings.Server, _smtpSettings.Port, _smtpSettings.SSL);
-        await client.AuthenticateAsync(_smtpSettings.SenderEmail, _smtpSettings.Password);
+        await client.AuthenticateAsync(new NetworkCredential(_smtpSettings.SenderEmail, _smtpSettings.Password));
 
         // Send to admins
         await client.SendAsync(adminMessage);
